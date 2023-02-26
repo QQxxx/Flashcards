@@ -1,23 +1,22 @@
 package ds.code.flashcards;
 
-import ds.code.flashcards.controller.StageController;
+import ds.code.flashcards.controller.CardStackController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ds.code.flashcards.model.Database;
+
 import java.io.IOException;
-import java.net.URL;
 
 
 public class App extends Application {
 
     private Stage stage;
     private VBox vBox;
+    private AnchorPane flashcardsOverview;
 
     public static void main(String args[]) {
         Application.launch(args);
@@ -33,10 +32,10 @@ public class App extends Application {
         prepareCardsOverview();
     }
 
-    @Override
-    public void stop() {
-        Database.closeConnection();
-    }
+//    @Override
+//    public void stop() {
+//        Database.closeConnection();
+//    }
 
     public void initializeStage() {
         try {
@@ -59,9 +58,18 @@ public class App extends Application {
     public void prepareCardsOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
-        } catch () {
+            loader.setLocation(App.class.getResource("/ds.code.flashcards/fxml/FlashcardsOverview.fxml"));
 
+            flashcardsOverview = (AnchorPane) loader.load();
+
+            flashcardsOverview.setCenterShape(true);
+            CardStackController cardStackController = loader.getController();
+            cardStackController.setApp(this);
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
     }
+
+
 
 }

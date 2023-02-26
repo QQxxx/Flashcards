@@ -21,8 +21,6 @@ public class View {
     }
 
 
-
-
     // In order to get a reference to the primary Stage, we need to create static fields.
     // We also need to create getter and setter methods.
 
@@ -46,24 +44,7 @@ public class View {
         flashcardList = list;
     }
 
+    public static void displayDetails(SimpleStringProperty newSelection){}
 
 
-//    public void initializeRootStage() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getResource("view/RootStage.fxml"));
-//
-//        rootStage = (BorderPane) loader.load();
-//        Scene scene = new Scene(rootStage);
-//        primaryStage.setScene(scene);
-//
-//
-//    }
-//
-//    public void showOverview() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(Main.class.getResource(""));
-//
-//        AnchorPane overview = (AnchorPane) loader.load();
-//        rootStage.setCenter(overview);
-//    }
 }

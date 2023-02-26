@@ -13,6 +13,7 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    //
     @Column(nullable = false)
     private String front;
 
@@ -32,6 +33,10 @@ public class Card {
         this.id = id;
         this.front = front;
         this.back = back;
+    }
+
+    public Card() {
+
     }
 
     /**

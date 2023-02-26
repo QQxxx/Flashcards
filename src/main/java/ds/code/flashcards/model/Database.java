@@ -20,7 +20,7 @@ public class Database {
 
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/flashcards", "root", "root");
+                    "jdbc:mysql://127.0.0.1:3306/flashcards", "root", "root");
             statement = connection.createStatement();
             return true;
         } catch (SQLException e1) {

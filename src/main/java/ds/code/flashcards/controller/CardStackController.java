@@ -1,89 +1,78 @@
 package ds.code.flashcards.controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import ds.code.flashcards.App;
 import ds.code.flashcards.model.Card;
+import ds.code.flashcards.model.CardStack;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import ds.code.flashcards.view.View;
 
 public class CardStackController {
 
+    // Front side of flashcard.
     @FXML
-    private TextField textFieldDeckName;
+    private Label front;
 
     @FXML
-    private TextField textFieldFront;
+    private Label back;
+
+    // Use SimpleStringProperties, because then we can treat these properties as kind of independent objects.
+    // We can also add listeners following them.
 
     @FXML
-    private TextField textFieldBack;
+    private TableView<SimpleStringProperty> flashCards;
 
     @FXML
-    private TableView<Card> cardTableView;
+    private TableColumn<SimpleStringProperty, String> flashcardsColumn;
 
-    @FXML
-    private Button addCardBtn;
+    private ObservableList<SimpleStringProperty> observableListOfCards = FXCollections.observableArrayList();
 
-    @FXML
-    private Button removeCardBtn;
+    private App app;
 
-    @FXML
-    private Button cancelBtn;
+    private CardStack cardStack = new CardStack();
 
-    @FXML
-    private Button addDeckBtn;
+    private Card card = new Card();
 
 
 
     /**
      *
-     * @param mouseEvent
-     * Checks if new card has been correctly filled in.
-     * Adds the card to the set.
      */
     @FXML
-    void addCard(MouseEvent mouseEvent) {
+    private void initialize() {
+        front.setText("");
+        back.setText("");
 
-        if("".equals(textFieldFront.getText()) || "".equals(textFieldBack.getText())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Error");
-            alert.setContentText("Please fill in front and back sides of the card.");
-            alert.setTitle("Card is not complete");
-            alert.show();
-        }
+        flashcardsColumn.setCellValueFactory(
+                cellData -> cellData.getValue()
+        );
+
+        // Add listener.
+        flashCards
+                .getSelectionModel()
+                .selectedItemProperty()
+                .addListener(
+                        (observable, oldSelection, newSelection) -> View.displayDetails(newSelection));
     }
 
+    @FXML
+    private void addFlashcard() {
+        cardStack.addCard(card);
+    }
 
+    @FXML
+    private void nextFlashcard() {
 
-//    @FXML
-//    void addDeck(MouseEvent mouseEvent) {
-//
-//        if("".equals(textFieldDeckName.getText())) {
-//
-//        } else {
-//
-//        try() {
-//            DeckDatabase deckDatabase = new DeckDatabase();
-//            deckDatabase.setDeckName(deck, tf_deck_name.getText());
-//
-//            Alert alert = new Alert(AlertType.INFORMATION);
-//            alert.setHeaderText("Success!");
-//            alert.setContentText("New deck of flashcards was added to your list.");
-//            alert.setTitle("New deck added.");
-//            alert.show();
-//
-//            Parent parent = FXMLLoader.load(getClass().getResource("/view/DecksView.fxml"));
-//            Scene scene = new Scene(parent);
-//            Main.getPrimaryStage().setScene(scene);
-//
-//            Main.setSelectedDeck(null);
-//        }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+    }
+
+    public void setApp(App app) {
+        this.app = app;
+    }
+
 
 }

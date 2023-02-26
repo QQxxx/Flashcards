@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class AddCardToStackController {
+public class CardController {
 
     @FXML
     private TextField front;
@@ -36,7 +36,7 @@ public class AddCardToStackController {
     }
 
     @FXML
-    private void initializeCard() { // TODO is this function needed ?
+    private void initializeCard() {
         label.setText("");
     }
 
